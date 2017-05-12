@@ -21,7 +21,7 @@ from django.views.static import serve
 from MxStable.settings import MEDIA_ROOT
 from django.views.generic import TemplateView
 
-from users.views import LoginView, LogoutView, RegisterView, ActiveUserView
+from users.views import LoginView, LogoutView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
 
 
 urlpatterns = [
@@ -48,7 +48,15 @@ urlpatterns = [
     # 用户注册：激活链接
     url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name='user_active'),
 
-    #
+    # 找回密码页面
+    url(r'^forget/$', ForgetPwdView.as_view(), name='forget_pwd'),
+
+    # 点击找回密码链接
+    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name='rest_pwd'),
+
+    # 点击找回密码链接
+    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
+
 
 ]
 
