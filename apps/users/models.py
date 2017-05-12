@@ -16,6 +16,7 @@ class UserProfile(AbstractUser):
     image = models.ImageField(max_length=100, upload_to='image/%Y/%m', default='image?default.png', verbose_name=u'头像')
 
     class Meta:
+
         verbose_name = '用户信息'
         verbose_name_plural = verbose_name
 
@@ -23,10 +24,10 @@ class UserProfile(AbstractUser):
     def __unicode__(self):
         return self.username
 
-    # def unread_nums(self):
-    #     # 获取用户未读消息数量
-    #     from operation.models import UserMessage
-    #     return UserMessage.objects.filter(user=self.id, has_read=False).count()
+    def unread_nums(self):
+        # 获取用户未读消息数量
+        from operation.models import UserMessage
+        return UserMessage.objects.filter(user=self.id, has_read=False).count()
 
 
 

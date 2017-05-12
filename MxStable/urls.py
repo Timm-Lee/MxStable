@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """MxStable URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,7 +17,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.static import serve
+from MxStable.settings import MEDIA_ROOT
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    # 处理 media 的访问，用于图片获取
+    # url(r'^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
+
+
+
+
 ]
