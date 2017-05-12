@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from .models import UserProfile
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
 
 class LoginView(View):
@@ -46,3 +46,23 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
+
+
+class RegisterView(View):
+    """
+    用户注册
+    """
+    def get(self, request):
+        register_form = RegisterForm()
+        return render(request, 'register.html', {
+            'register_form': register_form,
+        })
+
+    def post(self, request):
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            pass
+        else:
+            return render(request, 'register.html', {
+                'register_form': register_form,
+            })

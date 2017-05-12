@@ -21,7 +21,7 @@ from django.views.static import serve
 from MxStable.settings import MEDIA_ROOT
 from django.views.generic import TemplateView
 
-from users.views import LoginView, LogoutView
+from users.views import LoginView, LogoutView, RegisterView
 
 
 urlpatterns = [
@@ -39,7 +39,11 @@ urlpatterns = [
     # 用户登出
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
-    # 
+    # 用户注册
+    url(r'^register/$', RegisterView.as_view(), name='register'),
+
+    # 验证码图片的路由
+    url(r'^captcha/', include('captcha.urls')),
 
 
 ]
