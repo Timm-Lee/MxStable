@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Django settings for MxStable project.
 
@@ -31,6 +32,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -143,3 +147,14 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'timm_lee@sina.com'
+EMAIL_HOST_PASSWORD = 'admin123'
+EMAIL_FROM = 'timm_lee@sina.com'
+EMAIL_USE_TLS = False
+# 如果是 qq 邮箱： EMAIL_USE_TLS = True
+
+
