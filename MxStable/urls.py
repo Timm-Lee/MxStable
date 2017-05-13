@@ -57,6 +57,9 @@ urlpatterns = [
     # 点击找回密码链接
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
 
+    # 课程机构 url 配置
+    url(r'^org/', include('organization.urls', namespace="org")),
+
 
 ]
 
