@@ -254,6 +254,69 @@ class AddFavView(View):
 
 
 
+class TeacherListView(View):
+    """
+    课程讲师列表页
+    """
+    def get(self, request):
+        all_teachers = Teacher.objects.all()
+        teacher_nums = all_teachers.count()
+
+        sort = request.GET.get('sort', '')
+        if sort == 'hot':
+            all_teachers = all_teachers.order_by('-click_nums')
+
+        sorted_teacher = Teacher.objects.order_by("-click_nums")[:3]
+
+        # 设置以5个讲师为分页
+        paginator = Paginator(all_teachers, 5)
+        page = request.GET.get('page', 1)
+
+        try:
+            teachers = paginator.page(page)
+        except PageNotAnInteger:
+            teachers = paginator.page(1)
+        except EmptyPage:
+            teachers = paginator.page(paginator.num_pages)
+
+        return render(request, "teachers-list.html", {
+            'all_teachers': teachers,
+            'sorted_teacher': sorted_teacher,
+            'sort': sort,
+            'teacher_nums': teacher_nums
+        })
+
+
+class TeacherDetailView(View):
+    """
+    讲师详情页
+    """
+    def get(self, request, teacher_id):
+        teacher = Teacher.objects.get(id=int(teacher_id))
+        teacher.click_nums += 1
+        teacher.save()
+
+        all_courses = Course.objects.filter(teacher=teacher)
+
+        has_teacher_faved = False
+        if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher.id):
+            has_teacher_faved = True
+
+        has_org_faved = False
+        if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
+            has_org_faved = True
+
+        # 讲师排行
+        sorted_teacher = Teacher.objects.order_by("-click_nums")[:3]
+
+        return render(request, "teacher-detail.html", {
+            'teacher': teacher,
+            'all_courses': all_courses,
+            'sorted_teacher': sorted_teacher,
+            'has_teacher_faved': has_teacher_faved,
+            'has_org_faved': has_org_faved
+        })
+
 
 
 
