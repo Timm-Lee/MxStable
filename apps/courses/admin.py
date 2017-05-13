@@ -7,7 +7,7 @@ from organization.models import CourseOrg
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums',
+    list_display = ['name', 'desc', 'degree', 'learn_times', 'students', 'fav_nums',
                     'click_nums', 'add_time', 'get_lesson_nums', 'go_to']
     search_fields = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums',
                     'click_nums']
