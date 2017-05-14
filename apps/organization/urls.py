@@ -35,4 +35,6 @@ urlpatterns = [
     url(r'^teacher/detail/(?P<teacher_id>.*)/$', TeacherDetailView.as_view()    , name='teacher_detail'),
 
 
+
+
 ]
